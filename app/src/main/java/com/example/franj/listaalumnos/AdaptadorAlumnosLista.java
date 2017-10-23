@@ -1,6 +1,7 @@
 package com.example.franj.listaalumnos;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,11 @@ import java.util.ArrayList;
  * Created by franj on 18/10/2017.
  */
 
-public class AdaptadorAlumnosLista extends RecyclerView.Adapter<AdaptadorAlumnosLista.AlumnosListaViewHolder>{
+public class AdaptadorAlumnosLista extends RecyclerView.Adapter<AdaptadorAlumnosLista.AlumnosListaViewHolder>
+        implements View.OnClickListener{
 
     private ArrayList<Alumno> datos;
+    private View.OnClickListener listener;
 
     public static class AlumnosListaViewHolder
             extends RecyclerView.ViewHolder {
@@ -60,14 +63,26 @@ public class AdaptadorAlumnosLista extends RecyclerView.Adapter<AdaptadorAlumnos
     public int getItemCount() {
         return datos.size();
     }
+
+    public void setOnClickListener(View.OnClickListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     public AlumnosListaViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View itemView = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.alumno_layout, viewGroup, false);
 
+        itemView.setOnClickListener(this);
 
         AlumnosListaViewHolder tvh = new AlumnosListaViewHolder(itemView);
 
         return tvh;
+    }
+    @Override
+    public void onClick(View view) {
+        if(listener != null) {
+            listener.onClick(view);
+        }
     }
 }

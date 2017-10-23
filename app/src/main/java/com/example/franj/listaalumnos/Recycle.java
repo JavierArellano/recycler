@@ -3,6 +3,7 @@ package com.example.franj.listaalumnos;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
@@ -68,6 +69,16 @@ public class Recycle extends AppCompatActivity {
         recView.setHasFixedSize(true);
 
         final AdaptadorAlumnosLista adaptador = new AdaptadorAlumnosLista(datos);
+
+        adaptador.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.d("Prueba", "Pulsado el " + recView.getChildAdapterPosition(v));
+                datos.get(recView.getChildAdapterPosition(v)).setNombre(" (Has pulsado este)");
+                recView.setAdapter(adaptador);
+            }
+        });
 
         recView.setAdapter(adaptador);
         recView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));

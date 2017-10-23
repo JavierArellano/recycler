@@ -28,6 +28,10 @@ public class Alumno {
         return Serso;
     }
 
+    public void setNombre(String nombre) {
+        Nombre += nombre;
+    }
+
     public String getClasNivel(){
         return Clase + "-" + Nivel;
     }
